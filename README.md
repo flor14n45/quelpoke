@@ -1,6 +1,6 @@
-Ce projet d'afficher un pokemon une fois qu'un nom est entré est mis
+Ce projet peremt d'afficher un pokemon une fois qu'un nom est entré
 
-## Intallation avec Docker
+## Installation avec Docker
 
 Télécharger le Dockerfile et éxécuter la commande suivante : 
 
