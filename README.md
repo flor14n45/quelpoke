@@ -10,7 +10,7 @@ After the cration of the image, execute the following command :
 
 Once the docker is buil, you can open your favorite web navigator and you should see the following page : 
 
-![example](https://github.com/flor14n45/quelpoke/image.png)
+![example](https://github.com/flor14n45/quelpoke/blob/master/image.png)
 
 ## Without Docker
 
