@@ -1,5 +1,14 @@
-## Tourne sur le port 8080 avec du GO
+## Fonctionnement avec Docker
 
-Fonctionne avec un docker (Dockerfile en cours de création)
+Download the Dockerfile  and execute the following commande
 
-Prend un nom est renvoi un pokemon
+> docker build -t quelpoke .
+
+After the cration of the image, execute the following command : 
+
+> docker run -p 8080:8080 quelpoke:latest
+
+Once the docker is buil, you can open your favorite web navigator and you should see the following page : 
+
+![example]()
+
