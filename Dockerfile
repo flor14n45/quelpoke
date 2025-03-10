@@ -1,13 +1,23 @@
-# syntax=docker/dockerfile:1
+# Étape 1 : Utiliser une image de base Go 1.22.4 pour construire l'application
+FROM golang:1.22.4 AS builder
 
-FROM golang:1.19
-
+# Définir le répertoire de travail
 WORKDIR /app
 
+# Copier le fichier go.mod et go.sum pour les dépendances
+COPY go.mod ./
+
+# Installer les dépendances
+RUN go mod tidy
+
+# Copier tout le code source dans le conteneur
 COPY . .
 
-RUN GOPROXY="https://goproxy.io" go mod download # or `go mod tidy`
+# Construire l'application Go
+RUN go build -o quelpoke
 
-COPY *.go ./
-
+# Exposer le port sur lequel l'application écoute
 EXPOSE 8080
+
+# Commande par défaut pour exécuter l'application
+CMD ["quelpoke"]
