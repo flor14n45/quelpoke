@@ -1,11 +1,11 @@
 # Étape 1 : Utiliser une image de base Go 1.22.4 pour construire l'application
-FROM golang:1.22.4 AS builder
+FROM golang:1.22.4 
 
 # Définir le répertoire de travail
 WORKDIR /app
 
 # Copier le fichier go.mod et go.sum pour les dépendances
-COPY go.mod ./
+COPY . ./
 
 # Installer les dépendances
 RUN go mod tidy
@@ -20,4 +20,4 @@ RUN go build -o quelpoke
 EXPOSE 8080
 
 # Commande par défaut pour exécuter l'application
-CMD ["quelpoke"]
+CMD ["./quelpoke"]
