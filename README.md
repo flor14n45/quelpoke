@@ -1,17 +1,19 @@
-## With Docker
+Ce projet d'afficher un pokemon une fois qu'un nom est entré est mis
 
-Download the Dockerfile  and execute the following commande
+## Intallation avec Docker
+
+Télécharger le Dockerfile et éxécuter la commande suivante : 
 
 > docker build -t quelpoke .
 
-After the cration of the image, execute the following command : 
+Une fois l'image créer exécuté la commande suivante : 
 
 > docker run -p 8080:8080 quelpoke:latest
 
-Once the docker is buil, you can open your favorite web navigator and you should see the following page : 
+Allez dans votre navigateur internet à la page suivante http://localhost:8080, vous devriez arriver sur la page suivante 
 
 ![example](https://github.com/flor14n45/quelpoke/blob/master/images/image.png)
 
-## Without Docker
+## Sans docker
 
 Gl hf
