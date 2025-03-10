@@ -1,4 +1,4 @@
-Ce projet peremt d'afficher un pokemon une fois qu'un nom est entré
+Ce projet permet d'afficher un pokemon une fois qu'un nom est entré
 
 ## Installation avec Docker
 
@@ -17,3 +17,7 @@ Allez dans votre navigateur internet à la page suivante http://localhost:8080, 
 ## Sans docker
 
 Gl hf
+
+## Dépendances
+
+Un accés internet pour acceder à l'API pokéapi
