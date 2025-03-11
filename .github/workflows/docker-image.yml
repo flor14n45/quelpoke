@@ -17,6 +17,13 @@ jobs:
     # Étape 2 : Configurer Docker
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
+    
+    - name: Install Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+      project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+      service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+      export_default_credentials: true
 
     # Étape 3 : Connexion à Docker (Google Artifact Registry dans cet exemple)
     - name: Authenticate to Google Artifact Registry
