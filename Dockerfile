@@ -20,4 +20,4 @@ RUN go build -o quelpoke
 EXPOSE 8080
 
 # Commande par défaut pour exécuter l'application
-CMD ["./quelpoke"]
+CMD ["/bin/echo", "hello-world", "./quelpoke"]
