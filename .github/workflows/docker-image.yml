@@ -1,0 +1,38 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main   # Exécuter lorsque vous poussez des modifications sur la branche main
+  pull_request:
+    branches:
+      - main   # Exécuter lors de la création d'un pull request vers la branche main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Utiliser un runner Ubuntu pour le job
+
+    steps:
+    # Étape 1 : Checkout du code source
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Étape 2 : Configurer Docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Étape 3 : Connexion à Docker (Google Artifact Registry dans cet exemple)
+    - name: Authenticate to Google Artifact Registry
+      run: |
+        echo ${{ secrets.GOOGLE_CREDENTIALS }} | gcloud auth activate-service-account --key-file=-
+        gcloud config set project ${{ secrets.GCLOUD_PROJECT_ID }}
+
+    # Étape 4 : Construire l'image Docker
+    - name: Build Docker image
+      run: |
+        docker build -t europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest .
+
+    # Étape 5 : Pousser l'image Docker vers Google Artifact Registry
+    - name: Push Docker image
+      run: |
+        docker push europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest
