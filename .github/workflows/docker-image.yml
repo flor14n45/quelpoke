@@ -16,28 +16,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    #- name: Set up Docker Buildx
-    #  uses: docker/setup-buildx-action@v2 #On précise qu'on veut les commandes docker dans la machines
-
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v1 #On précise qu'on veut les commandes gcloud dans la machines
+    - name: Authentification pour Gcloud
+      uses: google-github-actions/auth@v1 #On précise qu'on veut s'authentifier à Gcloud dans la machine
       with:
         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }} #On utilise les identifiants d'un service account créer au préalable (clé sous la forme .json) 
 
-    - name: Install Google Cloud SDK
+    - name: Installation des commandes Gcloud
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: ${{ secrets.GCLOUD_PROJECT_ID }} #On précise sur quelle projet on se met pour ce workflows
 
-    - name: Authenticate Docker to Google Artifact Registry
+    - name: Authentification de gcloud sur la zone de notre projet Docker
       run: | #On précise quelle region de docker on va utiliser pour stocker notre image docker
         gcloud auth configure-docker europe-west9-docker.pkg.dev 
 
-    - name: Build Docker image
+    - name: Build de l'image Docker
       run: | #On build l'image docker
         docker build -t europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest .
 
-    - name: Push Docker image
+    - name: Push de l'image Docker vers Gcloud
       run: | #On la push vers le google artifact
         docker push europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest
 
