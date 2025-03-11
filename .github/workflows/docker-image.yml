@@ -3,10 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main   # Exécuter lorsque vous poussez des modifications sur la branche main
-  pull_request:
-    branches:
-      - main   # Exécuter lors de la création d'un pull request vers la branche main
+      - master   # Exécuter lorsque vous poussez des modifications sur la branche main
 
 jobs:
   build:
