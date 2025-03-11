@@ -3,40 +3,34 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master   # Exécuter lorsque vous poussez des modifications sur la branche main
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Utiliser un runner Ubuntu pour le job
+    runs-on: ubuntu-latest
 
     steps:
-    # Étape 1 : Checkout du code source
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    # Étape 2 : Configurer Docker
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
-    
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
     - name: Install Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-        service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
-        export_default_credentials: true
 
-    # Étape 3 : Connexion à Docker (Google Artifact Registry dans cet exemple)
-    - name: Authenticate to Google Artifact Registry
+    - name: Authenticate Docker to Google Artifact Registry
       run: |
-        echo ${{ secrets.GOOGLE_CREDENTIALS }} | gcloud auth activate-service-account --key-file=-
-        gcloud config set project ${{ secrets.GCLOUD_PROJECT_ID }}
+        gcloud auth configure-docker europe-west9-docker.pkg.dev
 
-    # Étape 4 : Construire l'image Docker
-    - name: Build Docker image
+    - name: Build and push Docker image
       run: |
-        docker build -t europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest .
-
-    # Étape 5 : Pousser l'image Docker vers Google Artifact Registry
-    - name: Push Docker image
-      run: |
-        docker push europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest
+        docker buildx build --platform linux/amd64 --push \
+          -t europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest .
