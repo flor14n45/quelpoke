@@ -33,7 +33,11 @@ jobs:
       run: | #On précise quelle region de docker on va utiliser pour stocker notre image docker
         gcloud auth configure-docker europe-west9-docker.pkg.dev 
 
-    - name: Build and push Docker image
-      run: | #On build notre image et on la push vers notre Google Artifacts Registry : europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest
-        docker buildx build --platform linux/amd64 --push \
-          -t europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest .
+    - name: Build Docker image
+      run: | #On build l'image docker
+        docker build -t europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest .
+
+    - name: Push Docker image
+      run: | #On la push vers le google artifact
+        docker push europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest
+
