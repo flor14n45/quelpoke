@@ -10,7 +10,7 @@ metadata:
   name: quelpoke-florian
   namespace: quelpoke-florian
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: quelpoke-florian
