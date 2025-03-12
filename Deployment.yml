@@ -44,12 +44,3 @@ spec:
       backendRefs:
       - name: quelpoke-florian
         port: 8080
-
-
-#  selector:
-#    app: quelpoke-florian
-#  ports:
-#    - protocol: TCP
-#      port: 9999
-#      targetPort: 8080
-#  type: LoadBalancer 
