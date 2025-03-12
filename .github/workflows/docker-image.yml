@@ -38,3 +38,15 @@ jobs:
       run: | #On la push vers le google artifact
         docker push europe-west9-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/student-florian/quelpoke:latest
 
+    - name: Plugin auth-gke install
+      run: | #On installe les paquets pour faire l'authentification de kube avec gcloud
+        gcloud components install gke-gcloud-auth-plugin
+
+    - name: Set up Kubernetes
+      run: | #On connecte le gcloud à notre cluster Kube
+        gcloud container clusters get-credentials ${{ secrets.GCLOUD_PROJECT_CLUSTERS }} --region=${{ secrets.GCLOUD_PROJECT_REGION }}
+
+    - name: Deploy to GKE
+      run: | #On lance le fichier Deployement.yml qui configure automatiquement notre workload
+        kubectl apply -f ./Deployment.yml
+
