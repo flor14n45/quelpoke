@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: quelpoke-florian
 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,6 +26,7 @@ spec:
         ports:
         - containerPort: 8080
 
+
 ---
 apiVersion: v1
 kind: Service
@@ -38,6 +40,7 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+
 
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
