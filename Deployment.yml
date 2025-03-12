@@ -38,6 +38,10 @@ spec:
           image: europe-west9-docker.pkg.dev/cs-poc-hpzdycpiqjyvinhrczvlwcn/student-florian/quelpoke:latest
           ports:
             - containerPort: 8080
+          ressources: 
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
 
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
