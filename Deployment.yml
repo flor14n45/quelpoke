@@ -64,3 +64,29 @@ spec:
         name: quelpoke-florian-service
         namespace: quelpoke-florian
         port: 8080
+
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: external-http-gateway
+  namespace: infra
+  annotations:
+    networking.gke.io/certmap: quelpoke-certmap
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  listeners:
+    - name: https-listener
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: http-listener
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        kinds:
+        - kind: HTTPRoute
+        namespaces:
+          from: All
