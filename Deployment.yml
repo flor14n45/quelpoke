@@ -60,5 +60,7 @@ spec:
             type: PathPrefix
             value: /florian
       backendRefs:
-        - name: quelpoke-florian-service
-          port: 8080
+      - kind: Service
+        name: quelpoke-florian-service
+        namespace: quelpoke-florian
+        port: 8080
